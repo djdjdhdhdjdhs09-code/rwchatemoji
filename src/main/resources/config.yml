@@ -1,0 +1,40 @@
+# RWChatEmoji - type :name: in chat or on a sign and it becomes the emoji.
+# The emoji are drawn by the resource pack that the plugin sends to players.
+# Animated frames (kh_wave_1..4, fire_dance_1..3 ...) are for TAB animations.
+
+chat: true
+signs: true
+
+pack:
+  enabled: true
+  url: "https://raw.githubusercontent.com/djdjdhdhdjdhs09-code/rwchatemoji/main/pack/RWChatEmoji-pack.zip"
+
+emojis:
+  kh: "<white>\uE000"
+  cambodia: "<white>\uE000"
+  khmer: "<white>\uE000"
+  heart: "<white>\uE001"
+  star: "<white>\uE002"
+  crown: "<white>\uE003"
+  fire: "<white>\uE004"
+  check: "<white>\uE005"
+  cross: "<white>\uE006"
+  coin: "<white>\uE007"
+  diamond: "<white>\uE008"
+  skull: "<white>\uE009"
+  smile: "<white>\uE00A"
+  bolt: "<white>\uE00B"
+  sun: "<white>\uE00C"
+  moon: "<white>\uE00D"
+  music: "<white>\uE00E"
+  gift: "<white>\uE00F"
+  sword: "<white>\uE010"
+  shield: "<white>\uE011"
+  angkor: "<white>\uE012"
+  sparkle: "<white>\uE013"
+  kh_wave: "<white>\uE014"
+  heart_beat: "<white>\uE018"
+  fire_dance: "<white>\uE01B"
+  star_spin: "<white>\uE01E"
+  coin_spin: "<white>\uE022"
+  sparkle_pulse: "<white>\uE026"
