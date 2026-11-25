@@ -1,0 +1,27 @@
+name: Build
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 21 }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: pip install pillow
+      - run: python tools/build.py
+      - run: mvn -B package
+      - uses: actions/upload-artifact@v4
+        with: { name: RWChatEmoji, path: target/RWChatEmoji.jar }
+      - name: Publish pack
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@users.noreply.github.com"
+          git add pack
+          git diff --cached --quiet || (git commit -m "Update pack [skip ci]" && git push)
