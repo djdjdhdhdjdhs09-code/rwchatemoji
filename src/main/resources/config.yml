@@ -5,6 +5,9 @@
 chat: true
 signs: true
 
+# Placeholders %rwchatemoji_<name>% (needs PlaceholderAPI). Animated ones change frame every this many ms.
+animation-speed-ms: 250
+
 pack:
   enabled: true
   url: "https://raw.githubusercontent.com/djdjdhdhdjdhs09-code/rwchatemoji/main/pack/RWChatEmoji-pack.zip"
@@ -38,3 +41,11 @@ emojis:
   star_spin: "<white>\uE01E"
   coin_spin: "<white>\uE022"
   sparkle_pulse: "<white>\uE026"
+
+animations:
+  kh_wave: ["\uE014", "\uE015", "\uE016", "\uE017"]
+  heart_beat: ["\uE018", "\uE019", "\uE01A"]
+  fire_dance: ["\uE01B", "\uE01C", "\uE01D"]
+  star_spin: ["\uE01E", "\uE01F", "\uE020", "\uE021"]
+  coin_spin: ["\uE022", "\uE023", "\uE024", "\uE025"]
+  sparkle_pulse: ["\uE026", "\uE027", "\uE028"]
