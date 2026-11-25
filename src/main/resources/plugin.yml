@@ -1,0 +1,17 @@
+name: RWChatEmoji
+main: rw.chatemoji.RWChatEmoji
+version: 1.0
+api-version: '1.21.11'
+description: "Type :kh: in chat or on signs to get the Cambodian flag and other symbols"
+commands:
+  rwchatemoji:
+    description: List shortcodes, reload
+    usage: "/rwchatemoji <list|pack|reload>"
+    aliases: [chatemoji, emoji]
+permissions:
+  rwchatemoji.use:
+    description: "Use :shortcodes: in chat and signs"
+    default: true
+  rwchatemoji.admin:
+    description: Reload the plugin
+    default: op
