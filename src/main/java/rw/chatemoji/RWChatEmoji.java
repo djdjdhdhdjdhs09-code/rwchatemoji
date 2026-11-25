@@ -8,6 +8,7 @@ import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -28,6 +29,8 @@ public final class RWChatEmoji extends JavaPlugin implements Listener, TabExecut
     private static final MiniMessage MM = MiniMessage.miniMessage();
     private static final Pattern TOKEN = Pattern.compile(":([a-z0-9_]+):");
     private final Map<String, Component> emojis = new TreeMap<>();
+    private final Map<String, String> chars = new TreeMap<>();
+    private final Map<String, List<String>> anims = new TreeMap<>();
     private final UUID packId = UUID.nameUUIDFromBytes("rwchatemoji-pack".getBytes());
     private volatile byte[] hash;
     private String url = "";
@@ -40,23 +43,42 @@ public final class RWChatEmoji extends JavaPlugin implements Listener, TabExecut
         getServer().getPluginManager().registerEvents(this, this);
         getCommand("rwchatemoji").setExecutor(this);
         getCommand("rwchatemoji").setTabCompleter(this);
+        if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) new Papi(this).register();
         getLogger().info("RWChatEmoji loaded " + emojis.size() + " shortcodes.");
     }
 
     private void load() {
         reloadConfig();
         emojis.clear();
+        chars.clear();
+        anims.clear();
+        ConfigurationSection an = getConfig().getConfigurationSection("animations");
+        if (an != null) for (String k : an.getKeys(false)) {
+            List<String> l = an.getStringList(k);
+            if (!l.isEmpty()) anims.put(k.toLowerCase(Locale.ROOT), l);
+        }
         ConfigurationSection sec = getConfig().getConfigurationSection("emojis");
         if (sec == null) return;
         for (String key : sec.getKeys(false)) {
             String raw = sec.getString(key);
             if (raw == null || raw.isBlank()) continue;
             try {
-                emojis.put(key.toLowerCase(Locale.ROOT), MM.deserialize(raw));
+                Component comp = MM.deserialize(raw);
+                emojis.put(key.toLowerCase(Locale.ROOT), comp);
+                chars.put(key.toLowerCase(Locale.ROOT), PlainTextComponentSerializer.plainText().serialize(comp));
             } catch (RuntimeException ex) {
                 getLogger().warning("Bad emoji '" + key + "': " + ex.getMessage());
             }
         }
+    }
+
+    String lookup(String id) {
+        List<String> fr = anims.get(id);
+        if (fr != null) {
+            long ms = Math.max(50, getConfig().getLong("animation-speed-ms", 250));
+            return fr.get((int) ((System.currentTimeMillis() / ms) % fr.size()));
+        }
+        return chars.get(id);
     }
 
     private void fetchHash() {
@@ -150,4 +172,4 @@ public final class RWChatEmoji extends JavaPlugin implements Listener, TabExecut
         }
         return List.of();
     }
-  }
+}
