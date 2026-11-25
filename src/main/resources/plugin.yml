@@ -2,6 +2,7 @@ name: RWChatEmoji
 main: rw.chatemoji.RWChatEmoji
 version: 1.0
 api-version: '1.21.11'
+softdepend: [PlaceholderAPI]
 description: "Type :kh: in chat or on signs to get the Cambodian flag and other symbols"
 commands:
   rwchatemoji:
